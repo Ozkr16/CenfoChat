@@ -4,6 +4,7 @@
   "description": "Cenfotec socket.io",
   "dependencies": {
     "express": "^4.15.2",
+    "mongodb": "^3.0.2",
     "socket.io": "^1.7.4"
   },
   "scripts": {
