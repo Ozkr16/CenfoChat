@@ -1,7 +1,7 @@
 # Objetivos
 
 * Chat que almacena la información de los mensajes usando MongoDB.
-* Autenticación con OAuth 2.0 usando algún proveedor real. 
+* Autenticación con OAuth 2.0 usando algún proveedor real.
 
 ## Tareas
 
