@@ -1,0 +1,12 @@
+{
+  "name": "socket.io-chat-example",
+  "version": "0.0.2",
+  "description": "Cenfotec socket.io",
+  "dependencies": {
+    "express": "^4.15.2",
+    "socket.io": "^1.7.4"
+  },
+  "scripts": {
+    "start": "node index.js"
+  }
+}
