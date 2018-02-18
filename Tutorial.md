@@ -3,7 +3,22 @@
 La idea de este ejercicio será mejorar el codigo fuente de CenfoChat de manera que se utilice la autenticación
 por medio de OAuth, usando cuentas de Gmail, y almacenando los datos en una base de datos de tipo NoSQL usando MongoDB.
 
-## Pasos para instalar las dependencias de MongoDB
+## Pasos para instalar y correr MongoDb en la maquina servidor de DB
+
+Pueden seguirse los pasos en estos links para instalar la version "Comunity" del proceso/servidor de MongoDb.
+
+* https://docs.mongodb.com/manual/tutorial/install-mongodb-on-os-x/
+* https://docs.mongodb.com/manual/tutorial/install-mongodb-on-windows/
+
+Una vez instalado, debe iniciarse el proceso de mongoDb para que este pueda responder a las peticiones. Debemos utilizar los comandos:
+
+Para crear la carpeta de datos de MongoDB:
+mkdir -p /data/db
+
+Luego corremos el comando:
+mongod
+
+## Pasos para instalar las dependencias de MongoDB en Node
 
 1) Copiar carpeta en BackUp/CenfoChat a la carpeta base.
 2) Nos movemos a la carpeta de CenfoChat.
@@ -33,6 +48,10 @@ MongoClient.connect(url, function(err, db) {
 });
 ```
 
+3) Ahora debemos correr el script anterior con nodejs, para que se de la creación de la DB. El comando sería "node mongodb-connect.js". La terminal deberá mostrar el mensaje "Base de datos creada.".
+
+
+
 ## Pasos para instalar las dependencias de OAuth 2.0
 
 Pasos.
@@ -40,4 +59,6 @@ Pasos.
 ## Referencias
 
 Referencias utilizadas para el tutorial:
+
+* https://docs.mongodb.com/manual/
 * https://www.w3schools.com/nodejs/nodejs_mongodb_create_db.asp
