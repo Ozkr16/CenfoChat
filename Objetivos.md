@@ -7,3 +7,4 @@
 
 * Buscar el client_id y el client_secret de algún proveedor de OAuth (Gmail, etc).
 * Buscar ejemplos de código en NodeJS de la utilización de OAuth.
+* Completar la integración con MongoDB.
