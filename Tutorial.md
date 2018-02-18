@@ -13,10 +13,13 @@ Pueden seguirse los pasos en estos links para instalar la version "Comunity" del
 Una vez instalado, debe iniciarse el proceso de mongoDb para que este pueda responder a las peticiones. Debemos utilizar los comandos:
 
 Para crear la carpeta de datos de MongoDB:
-mkdir -p /data/db
+mkdir -p ./data/db
 
 Luego corremos el comando:
-mongod
+mongod --dbpath ./data/db
+
+Si el proceso fue satisfactorio, deberemos observar en la consola, un mensaje similar a este:
+[initandlisten] waiting for connections on port 27017
 
 ## Pasos para instalar las dependencias de MongoDB en Node
 
