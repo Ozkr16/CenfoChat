@@ -74,4 +74,5 @@ Pasos.
 Referencias utilizadas para el tutorial:
 
 * <https://docs.mongodb.com/manual/>
+* <https://mongodb.github.io/node-mongodb-native/>
 * <https://www.w3schools.com/nodejs/nodejs_mongodb_create_db.asp>
