@@ -26,14 +26,26 @@ module.exports = {
       });
     });
   },
-  selectOne : function(callback){
+  selectOne : function(req, res){
     MongoClient.connect(url, function(err, db) {
       if (err) throw err;
       var dbo = db.db("cenfochatdb");
       dbo.collection("mensages").findOne({}, function(err, result) {
         if (err) throw err;
         console.log(JSON.stringify(result));
-        //callback(result);
+        res.send(JSON.stringify(result));
+        db.close();
+      });
+    });
+  },
+  GetAllMessagesForUser : function(req, res, user){
+    MongoClient.connect(url, function(err, db) {
+      if (err) throw err;
+      var dbo = db.db("cenfochatdb");
+      dbo.collection("mensages").find({nombre : user}).toArray(function(err, result) {
+        if (err) throw err;
+        console.log(JSON.stringify(result));
+        res.json(result);
         db.close();
       });
     });

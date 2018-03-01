@@ -11,18 +11,13 @@ var mongoConnection = require('./mongo/mongodb-connect.js');
 mongoConnection.connectToMongo();
 
 
-function logJSONObj(result) {
-  console.log(JSON.stringify(result));
-};
-
-
 // root: presentar html
 app.get('/', function(req, res){
   res.sendFile(__dirname + '/index.html');
 });
 
 app.get('/mongo/log/', function(req, res){
-  res.json(mongoConnection.selectOne(logJSONObj));
+  mongoConnection.GetAllMessagesForUser(req, res, "Perrito");
 });
 
 // escuchar una conexion por socket
