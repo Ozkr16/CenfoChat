@@ -4,6 +4,7 @@ var io = require('socket.io')(http);
 var port = process.env.PORT || 3000;
 var mongoConnection = require('./mongo/mongodb-connect.js');
 
+const bearerToken = require('express-bearer-token');
 const credentials = require('./config/oauth-configuration.json')
 
 // Initialize the OAuth2 Library
@@ -23,14 +24,45 @@ const authorizationUri = oauth2.authorizationCode.authorizeURL({
 mongoConnection.connectToMongo();
 
 
-// root: presentar html
-app.get('/', function(req, res){
+// Enable middleware to catch the bearer token contained in any request.
+app.use(bearerToken);
+
+// Página para redirigir a GitHub
+app.get('/auth', (req, res) => {
+  console.log(authorizationUri);
+  res.redirect(authorizationUri);
+});
+
+// Callback service parsing the authorization token and asking for the access token
+app.get('/callback', (req, res) => {
+  const code = req.query.code;
+  const options = {
+    code,
+  };
+
+  oauth2.authorizationCode.getToken(options, (error, result) => {
+    if (error) {
+      console.error('Access Token Error', error.message);
+      return res.json('Authentication failed');
+    }
+
+    console.log('The resulting token: ', result);
+    const token = oauth2.accessToken.create(result);
+
+    return res
+      .status(200)
+      .json(token);
+  });
+});
 
 
 
-
-
+app.get('/success', (req, res) => {
   res.sendFile(__dirname + '/index.html');
+});
+
+app.get('/', (req, res) => {
+  res.send('Hello<br><a href="/auth">Log in with Github</a>');
 });
 
 app.get('/mongo/log/', function(req, res){

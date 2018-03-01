@@ -73,6 +73,15 @@ La librería a utilizar se llama Simple OAuth 2.0 utilizando el siguiente comand
 npm install --save simple-oauth2
 
 Then add the proper configuration to the oauth-configuration.js
+(Add the client id and secret).
+
+Also, we will need a way to validate if the authentication token is present
+in any request. To do that, we can use a node middleware.
+Which is contained in the "express-bearer-token" library.
+
+To install that library, we can use the next command:
+
+npm i express-bearer-token
 
 ## Referencias
 

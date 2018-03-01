@@ -4,6 +4,7 @@
   "description": "Cenfotec socket.io",
   "dependencies": {
     "express": "^4.15.2",
+    "express-bearer-token": "^2.1.1",
     "mongodb": "^3.0.2",
     "simple-oauth2": "^1.5.0",
     "socket.io": "^1.7.4"
