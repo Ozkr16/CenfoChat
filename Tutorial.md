@@ -67,7 +67,10 @@ La terminal deberá mostrar el mensaje "Base de datos creada.".
 
 ## Pasos para instalar las dependencias de OAuth 2.0
 
-Pasos.
+Debemos instalar una librería que nos facilitará la utilización del protocolo OAuth02.
+La librería a utilizar se llama Simple OAuth 2.0 utilizando el siguiente comando:
+
+npm install --save simple-oauth2
 
 ## Referencias
 

@@ -1,13 +1,15 @@
-
-// npm install para descargar los paquetes...
-
-// libreriuas
 var app = require('express')();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var port = process.env.PORT || 3000;
 var mongoConnection = require('./mongo/mongodb-connect.js');
 
+const credentials = require('./config/oauth-configuration.json')
+
+// Initialize the OAuth2 Library
+const oauth2 = require('simple-oauth2').create(credentials);
+
+// Create the connection with MongoDB.
 mongoConnection.connectToMongo();
 
 
