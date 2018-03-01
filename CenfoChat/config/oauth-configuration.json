@@ -4,6 +4,8 @@
     "secret": "<client-secret>"
   },
   "auth": {
-    "tokenHost": "https://api.oauth.com"
+    "tokenHost": "https://github.com",
+    "tokenPath": "/login/oauth/access_token",
+    "authorizePath": "/login/oauth/authorize"
   }
 }

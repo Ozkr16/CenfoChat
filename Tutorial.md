@@ -72,6 +72,8 @@ La librería a utilizar se llama Simple OAuth 2.0 utilizando el siguiente comand
 
 npm install --save simple-oauth2
 
+Then add the proper configuration to the oauth-configuration.js
+
 ## Referencias
 
 Referencias utilizadas para el tutorial:
