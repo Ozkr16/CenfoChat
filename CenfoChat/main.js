@@ -9,12 +9,27 @@ const credentials = require('./config/oauth-configuration.json')
 // Initialize the OAuth2 Library
 const oauth2 = require('simple-oauth2').create(credentials);
 
+
+// Authorization uri definition
+// No scope defined means: 
+// Grants read-only access to public information (includes public user profile info, public repository info, and gists)
+const authorizationUri = oauth2.authorizationCode.authorizeURL({
+  redirect_uri: 'http://localhost:3000/callback',
+  scope: '',
+  state: '<ThisMustBeChangedToARandomString>',
+});
+
 // Create the connection with MongoDB.
 mongoConnection.connectToMongo();
 
 
 // root: presentar html
 app.get('/', function(req, res){
+
+
+
+
+
   res.sendFile(__dirname + '/index.html');
 });
 
