@@ -86,6 +86,8 @@ npm i express-bearer-token
 Finnally, we need a way to set the token in a cookie, to do that, we can use
 a package for that. To install it, we need to run the next command:
 
+npm install set-cookie
+npm install --save set-cookie-parser
 
 
 ## Referencias

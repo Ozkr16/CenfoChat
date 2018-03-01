@@ -3,6 +3,8 @@ var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var port = process.env.PORT || 3000;
 var mongoConnection = require('./mongo/mongodb-connect.js');
+var setCookie = require('set-cookie');
+
 
 const bearerToken = require('express-bearer-token');
 const credentials = require('./config/oauth-configuration.json')
@@ -58,10 +60,16 @@ app.get('/callback', (req, res) => {
     const token = oauth2.accessToken.create(result);
 
 
+    setCookie('myCookie', 'the value of the cookie', {
+      domain: '.example.org',
+      res: res
+    });
     
-    return res
-      .status(200)
-      .json(token);
+    res.sendFile(__dirname + '/index.html');
+    
+    // return res
+    //   .status(200)
+    //   .json(token);
   });
 });
 
