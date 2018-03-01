@@ -25,7 +25,15 @@ mongoConnection.connectToMongo();
 
 
 // Enable middleware to catch the bearer token contained in any request.
-app.use(bearerToken);
+app.use(bearerToken());
+app.use(function (req, res, next) {
+  // Allow only the Auth URL when there is no Bearer Token (req.token will be added there by the bearerToken middleware)
+  if((req.token == null || req.token == undefined || req.token == '') && (req.path != '/auth' && req.path != '/callback') ){
+    res.send('Hola <br><a href="/auth">Inicia sesión con Github!</a>');
+  }else{
+    next();
+  }
+})
 
 // Página para redirigir a GitHub
 app.get('/auth', (req, res) => {
@@ -49,24 +57,25 @@ app.get('/callback', (req, res) => {
     console.log('The resulting token: ', result);
     const token = oauth2.accessToken.create(result);
 
+
+    
     return res
       .status(200)
       .json(token);
   });
 });
 
-
-
-app.get('/success', (req, res) => {
-  res.sendFile(__dirname + '/index.html');
-});
+// app.get('/success', (req, res) => {
+//   res.sendFile(__dirname + '/index.html');
+// });
 
 app.get('/', (req, res) => {
-  res.send('Hello<br><a href="/auth">Log in with Github</a>');
+    res.sendFile(__dirname + '/index.html');
 });
 
-app.get('/mongo/log/', function(req, res){
-  mongoConnection.GetAllMessagesForUser(req, res, "Perrito");
+
+app.get('/mongo/log/:id', function(req, res){
+  mongoConnection.GetAllMessagesForUser(req, res, req.param.id);
 });
 
 // escuchar una conexion por socket
