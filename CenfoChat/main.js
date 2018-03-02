@@ -32,6 +32,7 @@ app.use(cookieParser());
 app.use(function (req, res, next) {
   var cookie = cookieParser.JSONCookies(req.cookies);
   var isValidCookie = cookie.Authorization_cookie != undefined && cookie.Authorization_cookie != null && cookie.Authorization_cookie != "";
+  // var userIsValid = isValidCookie && validateUserAgainstWhiteList();
   if(!isValidCookie && (req.path != '/auth' && req.path != '/callback') ){
     res.send('Hola <br><a href="/auth">Inicia sesión con Github!</a>');
   }else{
