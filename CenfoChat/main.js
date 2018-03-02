@@ -27,6 +27,8 @@ const authorizationUri = oauth2.authorizationCode.authorizeURL({
 // Create the connection with MongoDB.
 mongoConnection.connectToMongo();
 
+// Enable files to be retrieved from public folder.
+app.use(express.static(__dirname + '/public'));
 
 // Enable middleware to catch the bearer token contained in any request.
 app.use(bearerToken());
@@ -41,9 +43,6 @@ app.use(function (req, res, next) {
     next();
   }
 });
-
-// Enable files to be retrieved from public folder.
-app.use(express.static('public'));
 
 // Página para redirigir a GitHub
 app.get('/auth', (req, res) => {

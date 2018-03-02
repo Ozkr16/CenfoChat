@@ -1,7 +1,4 @@
       $(function () {
-        var askedUsername = window.prompt("¿Cuál es su nombre de usuario?");
-        $("#usuario").val(askedUsername);
-
         var socket = io();
 
         // emite evento al servidor
@@ -24,7 +21,7 @@
           // pequena validacion de no enviar nada al server vacio
           if (nombreTxt.trim() != undefined && nombreTxt.trim() != ""){
             socket.emit('chat_message', JSON.stringify(jsonMsg));
-            console.log("Emitted chat message from client." + JSON.stringify(textoMensaje));
+            console.log("Emitted chat message from client." + JSON.stringify(mensajeTxt));
             $('#m').val('');
           }
 
@@ -38,7 +35,7 @@
           var msgJson =  JSON.parse(msg);
 
           // lo ponemos en un formato
-          var mensajeDisplay = "<b style='color:"+ msgJson.color +"'>" + msgJson.nombre + "</b>: " + msgJson.mensaje;
+          var mensajeDisplay = "<b style='color:"+ msgJson.color +"'>" + msgJson.usuario + "</b>: " + msgJson.mensage;
 
           // imprimimos el mensaje en pantalla
           $('#messages').append($('<li>').html(mensajeDisplay));
