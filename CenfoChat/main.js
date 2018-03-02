@@ -75,7 +75,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('/mongo/log/:id', function(req, res){
-  mongoConnection.GetAllMessagesForUser(req, res, req.param.id);
+  mongoConnection.GetAllMessagesForUser(req, res, req.params.id);
 });
 
 // escuchar una conexion por socket

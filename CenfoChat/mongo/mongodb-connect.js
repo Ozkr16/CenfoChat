@@ -42,7 +42,7 @@ module.exports = {
     MongoClient.connect(url, function(err, db) {
       if (err) throw err;
       var dbo = db.db("cenfochatdb");
-      dbo.collection("mensages").find({nombre : user}).toArray(function(err, result) {
+      dbo.collection("mensages").find({usuario : user}).toArray(function(err, result) {
         if (err) throw err;
         console.log(JSON.stringify(result));
         res.json(result);
