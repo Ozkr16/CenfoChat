@@ -1,4 +1,5 @@
-var app = require('express')();
+var express = require('express');
+var app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var port = process.env.PORT || 3000;
@@ -40,6 +41,9 @@ app.use(function (req, res, next) {
     next();
   }
 });
+
+// Enable files to be retrieved from public folder.
+app.use(express.static('public'));
 
 // Página para redirigir a GitHub
 app.get('/auth', (req, res) => {
@@ -86,10 +90,10 @@ app.get('/mongo/log/:id', function(req, res){
 // escuchar una conexion por socket
 io.on('connection', function(socket){
   // si se escucha "chat message"
-  socket.on('Evento-Mensaje-Server', function(msg){
+  socket.on('chat_message', function(msg){
     // volvemos a emitir el mismo mensaje
     mongoConnection.insertChatMessage(msg);
-    io.emit('Evento-Mensaje-Server', msg);
+    io.emit('chat_message', msg);
   });
 });
 
