@@ -34,7 +34,7 @@ app.use(function (req, res, next) {
   var isValidCookie = cookie.Authorization_cookie != undefined && cookie.Authorization_cookie != null && cookie.Authorization_cookie != "";
   // var userIsValid = isValidCookie && validateUserAgainstWhiteList();
   if(!isValidCookie && (req.path != '/auth' && req.path != '/callback') ){
-    res.send('Hola <br><a href="/auth">Inicia sesión con Github!</a>');
+    res.send('<div class="inicioSesion"><center>Hola <br><a href="/auth">Inicia sesión con Github!</a></center></div>');
   }else{
     next();
   }
