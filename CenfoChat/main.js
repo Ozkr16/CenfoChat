@@ -7,8 +7,6 @@ var mongoConnection = require('./mongo/mongodb-connect.js');
 var setCookie = require('set-cookie');
 var cookieParser = require('cookie-parser');
 
-
-const bearerToken = require('express-bearer-token');
 const credentials = require('./config/oauth-configuration.json')
 
 // Initialize the OAuth2 Library
@@ -30,11 +28,8 @@ mongoConnection.connectToMongo();
 // Enable files to be retrieved from public folder.
 app.use(express.static(__dirname + '/public'));
 
-// Enable middleware to catch the bearer token contained in any request.
-app.use(bearerToken());
 app.use(cookieParser());
 app.use(function (req, res, next) {
-  // Allow only the Auth URL when there is no Bearer Token (req.token will be added there by the bearerToken middleware)
   var cookie = cookieParser.JSONCookies(req.cookies);
   var isValidCookie = cookie.Authorization_cookie != undefined && cookie.Authorization_cookie != null && cookie.Authorization_cookie != "";
   if(!isValidCookie && (req.path != '/auth' && req.path != '/callback') ){

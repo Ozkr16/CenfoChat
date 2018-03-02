@@ -1,4 +1,17 @@
       $(function () {
+      
+        var apiURL = "https://api.github.com/user?access_token=" + Cookies.get("Authorization_cookie");
+        $.ajax(
+          {
+            url: apiURL, 
+            success: function(result){
+              var usernameInput = document.getElementById("usuario");
+              usernameInput.value = result.login;
+            }
+          }
+        );
+
+        
         var socket = io();
 
         // emite evento al servidor
