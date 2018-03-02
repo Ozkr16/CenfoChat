@@ -10,3 +10,10 @@ form button { width: 9%; background: rgb(130, 224, 255); border: none; padding: 
 #messages { margin-bottom: 40px; }
 .my-message { background: #0A0; }
 .other-message { background: #BBB; }
+.avatar {
+    display: inline-block;
+    overflow: hidden;
+    line-height: 1;
+    vertical-align: middle;
+    border-radius: 3px;
+}

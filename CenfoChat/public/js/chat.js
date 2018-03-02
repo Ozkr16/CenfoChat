@@ -7,6 +7,8 @@
             success: function(result){
               var usernameInput = document.getElementById("usuario");
               usernameInput.value = result.login;
+              var imgURL = document.getElementById("avatarUrl");
+              imgURL.value = result.avatar_url;
             }
           }
         );
@@ -19,6 +21,7 @@
 
           // captura de nombre y mensaje
           var nombreTxt = $('#usuario').val() || "Anonimo";
+          var avatarURL = $('#avatarUrl').val();
           var mensajeTxt = $('#m').val();
 
           if (colorHexTxt == "")
@@ -28,7 +31,7 @@
 
           // composicion del mensaje en formato JSON para enviar
           // al server NODE
-          var jsonMsg = { usuario:nombreTxt, mensage: mensajeTxt, color: colorHexTxt};
+          var jsonMsg = { usuario:nombreTxt, mensage: mensajeTxt, color: colorHexTxt, avatar: avatarURL};
           
 
           // pequena validacion de no enviar nada al server vacio
@@ -48,7 +51,7 @@
           var msgJson =  JSON.parse(msg);
 
           // lo ponemos en un formato
-          var mensajeDisplay = "<b style='color:"+ msgJson.color +"'>" + msgJson.usuario + "</b>: " + msgJson.mensage;
+          var mensajeDisplay = "<div class='burbuja'><img class='avatar' height='32' src='" + msgJson.avatar + "' width='32'><b style='color:"+ msgJson.color +"'>" + msgJson.usuario + "</b>: " + msgJson.mensage + "</div>";
 
           // imprimimos el mensaje en pantalla
           $('#messages').append($('<li>').html(mensajeDisplay));
