@@ -69,17 +69,13 @@ app.get('/callback', (req, res) => {
 
     var tokenValue = token.token.access_token;
     var cookieValue = "Authorization_cookie=" + tokenValue + ";";
-    res.writeHead(302, {  "Location": req.protocol + '://' + req.hostname + ":" + port + "/success", 'Set-Cookie': cookieValue});
+    res.writeHead(302, {  "Location": req.protocol + '://' + req.hostname + ":" + port + "/", 'Set-Cookie': cookieValue});
     res.end();
   });
 });
 
 app.get('/', (req, res) => {
     res.sendFile(__dirname + '/index.html');
-});
-
-app.get('/success', (req, res) => {
-  res.sendFile(__dirname + '/index.html');
 });
 
 app.get('/mongo/log/:id', function(req, res){
