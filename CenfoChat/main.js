@@ -4,6 +4,7 @@ var io = require('socket.io')(http);
 var port = process.env.PORT || 3000;
 var mongoConnection = require('./mongo/mongodb-connect.js');
 var setCookie = require('set-cookie');
+var cookieParser = require('cookie-parser');
 
 
 const bearerToken = require('express-bearer-token');
@@ -28,14 +29,17 @@ mongoConnection.connectToMongo();
 
 // Enable middleware to catch the bearer token contained in any request.
 app.use(bearerToken());
+app.use(cookieParser());
 app.use(function (req, res, next) {
   // Allow only the Auth URL when there is no Bearer Token (req.token will be added there by the bearerToken middleware)
-  if((req.token == null || req.token == undefined || req.token == '') && (req.path != '/auth' && req.path != '/callback') ){
+  var cookie = cookieParser.JSONCookies(req.cookies);
+  var isValidCookie = cookie.Authorization_cookie != undefined && cookie.Authorization_cookie != null && cookie.Authorization_cookie != "";
+  if(!isValidCookie && (req.path != '/auth' && req.path != '/callback') ){
     res.send('Hola <br><a href="/auth">Inicia sesión con Github!</a>');
   }else{
     next();
   }
-})
+});
 
 // Página para redirigir a GitHub
 app.get('/auth', (req, res) => {
@@ -58,29 +62,22 @@ app.get('/callback', (req, res) => {
 
     console.log('The resulting token: ', result);
     const token = oauth2.accessToken.create(result);
+    console.log('Serialized token: ', JSON.stringify(token));
 
-
-    setCookie('myCookie', 'the value of the cookie', {
-      domain: '.example.org',
-      res: res
-    });
-    
-    res.sendFile(__dirname + '/index.html');
-    
-    // return res
-    //   .status(200)
-    //   .json(token);
+    var tokenValue = token.token.access_token;
+    var cookieValue = "Authorization_cookie=" + tokenValue + ";";
+    res.writeHead(302, {  "Location": req.protocol + '://' + req.hostname + ":" + port + "/success", 'Set-Cookie': cookieValue});
+    res.end();
   });
 });
-
-// app.get('/success', (req, res) => {
-//   res.sendFile(__dirname + '/index.html');
-// });
 
 app.get('/', (req, res) => {
     res.sendFile(__dirname + '/index.html');
 });
 
+app.get('/success', (req, res) => {
+  res.sendFile(__dirname + '/index.html');
+});
 
 app.get('/mongo/log/:id', function(req, res){
   mongoConnection.GetAllMessagesForUser(req, res, req.param.id);
